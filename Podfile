@@ -6,6 +6,7 @@ target 'LD Swift News' do
   use_frameworks!
 
   pod 'Moya', '~> 12.0'
+  pod 'RealmSwift'
 
   target 'LD Swift NewsTests' do
     inherit! :search_paths
