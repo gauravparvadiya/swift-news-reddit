@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct NewsData: Decodable {
     
@@ -24,28 +25,41 @@ struct NewsData: Decodable {
     }
 }
 
-struct News: Decodable {
-    let title: String
-    let selftext: String
-    let thumbnail: URL?
+class News: Object, Decodable {
+    @objc dynamic var id: String = ""
+    @objc dynamic var title: String = ""
+    @objc dynamic var selftext: String = ""
+    @objc dynamic var _thumbnail: String? = nil
+    
+    var thumbnail: URL? {
+        guard let thumb = _thumbnail else {
+            return nil
+        }
+        
+        return URL(string: thumb)
+    }
     
     enum CodingKeys: String, CodingKey {
         case title
         case selftext
-        case thumbnail
+        case _thumbnail = "thumbnail"
         case data
+        case id
     }
     
-    init(from decoder: Decoder) throws {
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    required convenience init(from decoder: Decoder) throws {
+        self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let data = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+        self.id = try data.decode(String.self, forKey: .id)
         self.title = try data.decode(String.self, forKey: .title)
         self.selftext = try data.decode(String.self, forKey: .selftext)
-        if let _thumbnail = try data.decodeIfPresent(String.self, forKey: .thumbnail), _thumbnail != "self", _thumbnail != "default", let thumbURL = URL(string: _thumbnail) {
-            self.thumbnail = thumbURL
-            
-        } else {
-            self.thumbnail = nil
+        if let _thumb = try data.decodeIfPresent(String.self, forKey: ._thumbnail), _thumb != "self", _thumb != "default" {
+            self._thumbnail = _thumb
         }
     }
 }
