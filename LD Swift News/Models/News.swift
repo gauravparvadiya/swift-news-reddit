@@ -62,4 +62,6 @@ class News: Object, Decodable {
             self._thumbnail = _thumb
         }
     }
+    
+    
 }

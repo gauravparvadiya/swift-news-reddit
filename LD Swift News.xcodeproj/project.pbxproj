@@ -35,6 +35,7 @@
 		F6C0AE54234AAD3C00FD3F94 /* NewsAPIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0AE53234AAD3C00FD3F94 /* NewsAPIRepository.swift */; };
 		F6C0AE57234AC16400FD3F94 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0AE56234AC16400FD3F94 /* RealmManager.swift */; };
 		F6C0AE59234AC2B300FD3F94 /* Realm+TransactionWait.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0AE58234AC2B300FD3F94 /* Realm+TransactionWait.swift */; };
+		F6C0AE5B234AD3CD00FD3F94 /* NewsRealmTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C0AE5A234AD3CD00FD3F94 /* NewsRealmTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		F6C0AE53234AAD3C00FD3F94 /* NewsAPIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIRepository.swift; sourceTree = "<group>"; };
 		F6C0AE56234AC16400FD3F94 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		F6C0AE58234AC2B300FD3F94 /* Realm+TransactionWait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+TransactionWait.swift"; sourceTree = "<group>"; };
+		F6C0AE5A234AD3CD00FD3F94 /* NewsRealmTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRealmTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 			children = (
 				F6A90A602347B38A00162B8D /* Info.plist */,
 				F6C0AE50234AAC1100FD3F94 /* NewsListAPITest.swift */,
+				F6C0AE5A234AD3CD00FD3F94 /* NewsRealmTest.swift */,
 			);
 			path = "LD Swift NewsTests";
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6C0AE5B234AD3CD00FD3F94 /* NewsRealmTest.swift in Sources */,
 				F6C0AE51234AAC1100FD3F94 /* NewsListAPITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
