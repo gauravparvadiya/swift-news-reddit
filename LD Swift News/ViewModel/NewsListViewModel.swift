@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import RealmSwift
 
 protocol NewsListViewDelegate: class {
     func refreshList()
@@ -19,25 +20,42 @@ protocol NewsListCoordinatorDelegate: class {
 
 class NewsListViewModel {
     
-    var news: [News]
+    var news: Results<News>
     weak var newsListViewDelegate: NewsListViewDelegate?
     weak var newListCoordinatorDelegate: NewsListCoordinatorDelegate?
+    var apiRepo: NewsAPIRepository
+    
+    var newsNotificationToken: NotificationToken?
     
     init() {
-        news = []
+        news = RealmManager.shared.getNews()
+        let repo = NewsAPIRepository()
+        apiRepo = repo
+        fetchNews()
+        
+        observeNews()
     }
     
     func fetchNews() {
-        Network.request(.fetchNews, decodeType: NewsData.self, success: { newsResponse in
-            print(newsResponse.news)
-            self.news = newsResponse.news
-            self.newsListViewDelegate?.refreshList()
-        }, error: { error in
-            
-        }, failure: { error in
-            
-        }, completion: {
-            
-        })
+        apiRepo.fetchNews(completion: { news in
+            RealmManager.shared.storeNews(news)
+        }) { errorMessage in
+            print(errorMessage)
+        }
+    }
+    
+    private func observeNews() {
+        if let allNewsToken = newsNotificationToken {
+            allNewsToken.invalidate()
+        }
+        
+        newsNotificationToken = news.observe { changes in
+            switch changes {
+            case .initial: return
+            case .update:
+                self.newsListViewDelegate?.refreshList()
+            case .error: break
+            }
+        }
     }
 }
